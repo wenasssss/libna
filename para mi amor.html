@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Libna 💕</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    text-align: center;
+}
+
+/* Pantalla inicial */
+#inicio {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+#inicio button {
+    font-size: 1.5em;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 15px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    animation: latido 1s infinite;
+}
+
+@keyframes latido {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.2);}
+    100% {transform: scale(1);}
+}
+
+/* Contenido */
+.contenido {
+    margin-top: 100px;
+    opacity: 0;
+    transition: 2s;
+}
+
+.nombre {
+    font-size: 3em;
+    background: linear-gradient(90deg, #fff, #ff4d6d, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: brillo 3s infinite;
+}
+
+@keyframes brillo {
+    0% {background-position: 0%;}
+    100% {background-position: 300%;}
+}
+
+.mensaje {
+    font-size: 1.4em;
+    margin: 20px;
+}
+
+/* Corazones */
+.corazon {
+    position: absolute;
+    top: -10px;
+    font-size: 20px;
+    animation: caer linear infinite;
+}
+
+@keyframes caer {
+    0% {transform: translateY(0) rotate(0);}
+    100% {transform: translateY(100vh) rotate(360deg);}
+}
+
+/* Botón sorpresa */
+#btnFinal {
+    display: none;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: #fff;
+    color: #ff4d6d;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+</style>
+<link type="text/css" rel="stylesheet" href="css/style.css"/>
+</head>
+
+<body>
+
+<!-- Pantalla inicial -->
+<div id="inicio">
+    <button onclick="empezar()">Toca aquí 💕</button>
+</div>
+
+<!-- Música -->
+<audio id="musica" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Contenido -->
+<div class="contenido" id="contenido">
+    <h1 class="nombre">Libna 💖</h1>
+
+    <div class="mensaje" id="texto"></div>
+
+    <button id="btnFinal" onclick="final()">
+        Último mensaje 💌
+    </button>
+</div>
+
+<script>
+const mensajes = [
+    "Eres la niña más hermosa que existe 😍",
+    "Me encantas más de lo que imaginas 🥺",
+    "Tu sonrisa ilumina todo mi mundo 💖",
+    "Y sinceramente...",
+    "Si no es contigo, no quiero con nadie más 💞"
+];
+
+let i = 0;
+
+// Empezar experiencia
+function empezar() {
+    document.getElementById("inicio").style.display = "none";
+    document.getElementById("contenido").style.opacity = "1";
+
+    const audio = document.getElementById("musica");
+    audio.play();
+
+    mostrarTexto();
+}
+
+// Mostrar mensajes uno por uno
+function mostrarTexto() {
+    if (i < mensajes.length) {
+        document.getElementById("texto").innerHTML = mensajes[i];
+        i++;
+        setTimeout(mostrarTexto, 2500);
+    } else {
+        document.getElementById("btnFinal").style.display = "inline-block";
+    }
+}
+
+// Mensaje final
+function final() {
+    document.getElementById("texto").innerHTML =
+    "Te amo muchísimo Libna 🥰 eres lo mejor que me ha pasado 💖";
+}
+
+// Corazones
+function crearCorazones() {
+    const corazon = document.createElement("div");
+    corazon.classList.add("corazon");
+    corazon.innerHTML = "❤️";
+
+    corazon.style.left = Math.random() * window.innerWidth + "px";
+    corazon.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+    document.body.appendChild(corazon);
+
+    setTimeout(() => corazon.remove(), 5000);
+}
+
+setInterval(crearCorazones, 200);
+</script>
+
+<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
